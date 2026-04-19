@@ -24,7 +24,7 @@ export default function MapAside({ pits, allPits, selectedId, onSelect, search, 
   return (
     <aside className={className} style={{
       width: 300, borderLeft: '1px solid var(--line)',
-      background: 'var(--surface)', display: 'flex', flexDirection: 'column',
+      background: 'var(--surface)', flexDirection: 'column',
       overflow: 'hidden',
     }}>
       <div style={{ padding: '16px 16px 0' }}>

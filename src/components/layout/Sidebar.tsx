@@ -18,7 +18,6 @@ export default function Sidebar({ className }: { className?: string }) {
       minHeight: '100vh',
       background: 'var(--surface)',
       borderRight: '1px solid var(--line)',
-      display: 'flex',
       flexDirection: 'column',
       padding: '24px 0',
       flexShrink: 0,

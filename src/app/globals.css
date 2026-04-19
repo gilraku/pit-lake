@@ -31,6 +31,7 @@ body {
 
 /* ── App shell ── */
 .app-sidebar {
+  display: flex;
   width: 220px;
   flex-shrink: 0;
 }
@@ -58,6 +59,7 @@ body {
   overflow: hidden;
   flex: 1;
 }
+.map-aside { display: flex; }
 .map-aside-mobile-toggle { display: none; }
 
 /* ── Wizard ── */

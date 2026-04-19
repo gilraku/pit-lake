@@ -6,7 +6,6 @@ import { usePitStore } from '@/store/usePitStore';
 import TopBar from '@/components/layout/TopBar';
 import Chip from '@/components/ui/Chip';
 import EmptyState from '@/components/ui/EmptyState';
-import Link from 'next/link';
 
 const RadarChart = dynamic(() => import('@/components/compare/RadarChart'), {
   ssr: false,
@@ -23,57 +22,68 @@ export default function CompareClient() {
 
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'auto' }}>
-      <TopBar title="Compare Sites" subtitle={`${compareSel.length}/4 selected`} />
-      <main style={{ padding: '28px 32px', display: 'flex', flexDirection: 'column', gap: 24, flex: 1 }}>
+      <TopBar title="Compare" subtitle={`${compareSel.length}/4 selected`} />
+      <main className="page-main" style={{ display: 'flex', flexDirection: 'column', gap: 20, flex: 1 }}>
 
         <div style={{
           background: 'var(--surface)', border: '1px solid var(--line)',
-          borderRadius: 'var(--radius-lg)', padding: '16px 20px',
+          borderRadius: 'var(--radius-lg)', overflow: 'hidden',
         }}>
-          <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 12 }}>
-            Select sites to compare (max 4)
+          <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>
+              Select sites to compare <span style={{ color: 'var(--muted)', fontWeight: 400 }}>(max 4)</span>
+            </span>
+            {compareSel.length > 0 && (
+              <button onClick={clearCompare} style={{ fontSize: 12, color: 'var(--muted)', background: 'none', border: 'none', cursor: 'pointer' }}>
+                Clear
+              </button>
+            )}
           </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-            {pits.map(pit => {
+
+          {pits.length === 0 ? (
+            <div style={{ padding: '16px', fontSize: 13, color: 'var(--muted)' }}>No sites yet.</div>
+          ) : (
+            pits.map(pit => {
               const sel = compareSel.includes(pit.id);
+              const disabled = !sel && compareSel.length >= 4;
               return (
                 <button
                   key={pit.id}
-                  onClick={() => toggleCompare(pit.id)}
+                  onClick={() => !disabled && toggleCompare(pit.id)}
                   style={{
-                    padding: '7px 14px', borderRadius: 'var(--radius)',
-                    border: sel ? '1px solid var(--primary)' : '1px solid var(--line)',
-                    background: sel ? 'color-mix(in oklab, var(--primary) 10%, var(--surface))' : 'var(--surface-2)',
-                    cursor: !sel && compareSel.length >= 4 ? 'not-allowed' : 'pointer',
-                    opacity: !sel && compareSel.length >= 4 ? 0.5 : 1,
-                    color: sel ? 'var(--primary)' : 'var(--ink)',
-                    fontSize: 13, fontWeight: sel ? 600 : 400,
-                    display: 'flex', alignItems: 'center', gap: 8,
+                    width: '100%', textAlign: 'left',
+                    padding: '12px 16px',
+                    borderBottom: '1px solid var(--line)',
+                    border: 'none',
+                    borderLeft: sel ? '3px solid var(--primary)' : '3px solid transparent',
+                    background: sel ? 'color-mix(in oklab, var(--primary) 6%, var(--surface))' : 'var(--surface)',
+                    cursor: disabled ? 'not-allowed' : 'pointer',
+                    opacity: disabled ? 0.4 : 1,
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
                   }}
                 >
-                  {pit.pitName}
-                  <Chip rating={pit.rating} size="sm" />
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontSize: 14, fontWeight: sel ? 600 : 400, color: sel ? 'var(--primary)' : 'var(--ink)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {pit.pitName}
+                    </div>
+                    <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 2 }}>{pit.companyName}</div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+                    <Chip rating={pit.rating} size="sm" />
+                    <span style={{ fontSize: 12, color: sel ? 'var(--primary)' : 'var(--faint)', fontWeight: 600 }}>
+                      {sel ? '✓' : '+'}
+                    </span>
+                  </div>
                 </button>
               );
-            })}
-            {pits.length === 0 && (
-              <span style={{ fontSize: 13, color: 'var(--muted)' }}>No sites yet.</span>
-            )}
-          </div>
-          {compareSel.length > 0 && (
-            <button
-              onClick={clearCompare}
-              style={{ marginTop: 10, fontSize: 12, color: 'var(--muted)', background: 'none', border: 'none', cursor: 'pointer' }}
-            >
-              Clear selection
-            </button>
+            })
           )}
         </div>
 
         {selected.length < 2 ? (
           <EmptyState
             title="Select at least 2 sites"
-            description="Choose sites from the list above to start comparing."
+            description="Pilih site dari daftar di atas untuk membandingkan."
           />
         ) : (
           <>
