@@ -19,7 +19,7 @@ export default function IndicatorCard({ indicator, value, onChange }: IndicatorC
       <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--ink)', marginBottom: 14 }}>
         {indicator.label}
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 8 }}>
+      <div className="score-ladder">
         {indicator.criteria.map((label, i) => {
           const score = i + 1;
           const active = value === score;

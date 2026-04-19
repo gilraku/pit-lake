@@ -14,6 +14,7 @@ export default function MapClient() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [filterRating, setFilterRating] = useState<Rating | null>(null);
+  const [asideOpen, setAsideOpen] = useState(false);
 
   useEffect(() => { loadPits(); }, [loadPits]);
 
@@ -23,28 +24,42 @@ export default function MapClient() {
     return true;
   });
 
+  function handleSelect(id: string) {
+    setSelectedId(id);
+    setAsideOpen(false);
+  }
+
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-      <TopBar title="Map" subtitle={`${pits.filter(p => p.locationCoordinate).length} sites with coords`} />
+      <TopBar title="Map" subtitle={`${pits.filter(p => p.locationCoordinate).length} sites`} />
       <div className="map-layout">
-        <div style={{ padding: 16, background: 'var(--paper-2)' }}>
+        <div style={{ padding: 12, background: 'var(--paper-2)', overflow: 'hidden' }}>
           <MapCanvas
             pits={pits.filter(p => p.locationCoordinate)}
             selectedId={selectedId}
-            onSelect={setSelectedId}
+            onSelect={handleSelect}
           />
         </div>
         <MapAside
+          className={`map-aside${asideOpen ? ' open' : ''}`}
           pits={filtered}
           allPits={pits}
           selectedId={selectedId}
-          onSelect={setSelectedId}
+          onSelect={handleSelect}
           search={search}
           onSearch={setSearch}
           filterRating={filterRating}
           onFilterRating={setFilterRating}
         />
       </div>
+
+      {/* Mobile toggle button */}
+      <button
+        className="map-aside-mobile-toggle"
+        onClick={() => setAsideOpen(o => !o)}
+      >
+        {asideOpen ? '✕ Close' : `⊞ Sites (${filtered.length})`}
+      </button>
     </div>
   );
 }

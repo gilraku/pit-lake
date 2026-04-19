@@ -56,7 +56,7 @@ export default function HeroCard({ pits }: HeroCardProps) {
           <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
             Portfolio Average
           </div>
-          <div style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', lineHeight: 1, fontSize: 120 }}>
+          <div className="hero-score-num" style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', lineHeight: 1, fontSize: 120 }}>
             <span style={{ color: 'var(--primary)' }}>{scoreStr[0]}</span>
             <span style={{ color: 'var(--ink)' }}>{scoreStr.slice(1)}</span>
           </div>

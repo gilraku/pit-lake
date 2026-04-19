@@ -13,15 +13,16 @@ interface MapAsideProps {
   onSearch: (v: string) => void;
   filterRating: Rating | null;
   onFilterRating: (r: Rating | null) => void;
+  className?: string;
 }
 
 const RATINGS: Rating[] = ['Excellent', 'Good', 'Fair', 'Poor', 'Very Poor'];
 
-export default function MapAside({ pits, allPits, selectedId, onSelect, search, onSearch, filterRating, onFilterRating }: MapAsideProps) {
+export default function MapAside({ pits, allPits, selectedId, onSelect, search, onSearch, filterRating, onFilterRating, className }: MapAsideProps) {
   const noCoords = allPits.filter(p => !p.locationCoordinate).length;
 
   return (
-    <aside style={{
+    <aside className={className} style={{
       width: 300, borderLeft: '1px solid var(--line)',
       background: 'var(--surface)', display: 'flex', flexDirection: 'column',
       overflow: 'hidden',

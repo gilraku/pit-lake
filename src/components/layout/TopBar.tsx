@@ -24,7 +24,7 @@ export default function TopBar({ title, subtitle }: TopBarProps) {
       <div>
         <span style={{ fontSize: 15, fontWeight: 600, color: 'var(--ink)' }}>{title}</span>
         {subtitle && (
-          <span style={{ fontSize: 13, color: 'var(--muted)', marginLeft: 12 }}>{subtitle}</span>
+          <span className="topbar-subtitle" style={{ fontSize: 13, color: 'var(--muted)', marginLeft: 12 }}>{subtitle}</span>
         )}
       </div>
       <button

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Instrument_Serif, Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/layout/Sidebar";
+import BottomNav from "@/components/layout/BottomNav";
 
 const instrumentSerif = Instrument_Serif({
   variable: "--font-serif",
@@ -44,6 +45,7 @@ export default function RootLayout({
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
           {children}
         </div>
+        <BottomNav />
       </body>
     </html>
   );

@@ -17,7 +17,7 @@ export default function GaugeCard({ pit }: GaugeCardProps) {
       borderRadius: 'var(--radius-lg)',
       padding: '28px 32px',
     }}>
-      <div style={{ display: 'flex', gap: 40, alignItems: 'flex-start' }}>
+      <div className="gauge-inner">
         <div>
           <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
             Final Score
