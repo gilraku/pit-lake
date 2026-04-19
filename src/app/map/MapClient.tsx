@@ -33,7 +33,7 @@ export default function MapClient() {
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <TopBar title="Map" subtitle={`${pits.filter(p => p.locationCoordinate).length} sites`} />
       <div className="map-layout">
-        <div style={{ padding: 12, background: 'var(--paper-2)', overflow: 'hidden' }}>
+        <div className="map-canvas-wrap" style={{ padding: 12, background: 'var(--paper-2)', overflow: 'hidden' }}>
           <MapCanvas
             pits={pits.filter(p => p.locationCoordinate)}
             selectedId={selectedId}

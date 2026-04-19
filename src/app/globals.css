@@ -156,6 +156,10 @@ body {
   /* GaugeCard: stack vertically */
   .gauge-inner { flex-direction: column; gap: 20px; }
 
+  /* Map: reserve space for bottom nav */
+  .map-canvas-wrap { padding-bottom: calc(56px + env(safe-area-inset-bottom)) !important; }
+  .map-aside-mobile-toggle { bottom: calc(56px + env(safe-area-inset-bottom) + 12px); }
+
   /* Score ladder: 3 + 2 on mobile */
   .score-ladder { grid-template-columns: repeat(3, 1fr); }
   .score-ladder > *:nth-child(4) { grid-column: 1; }
